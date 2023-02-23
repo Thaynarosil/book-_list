@@ -1,14 +1,24 @@
 # version: '3.8'
 
 services:
+  frontend:
+    build: ./frontend
+    # working_dir: /app
+    ports:
+      - 80:3001
+    # volumes:
+    #   - ./frontend:/app
+    depends_on:
+      - backend
   backend:
     depends_on:
       - db1
       - db2
     build: ./backend
     ports:
-      - 3001:3001
+      - 3000:3000
     environment:
+      PORT: 3000
       DB1_URL: mongodb://thayna:rosil@db1:27017/
       DB2_URL: mongodb://thayna:rosil@db2:27017/
 
