@@ -1,0 +1,36 @@
+# version: '3.8'
+
+services:
+  backend:
+    depends_on:
+      - db1
+      - db2
+    build: ./backend
+    ports:
+      - 3001:3001
+    environment:
+      DB1_URL: mongodb://thayna:rosil@db1:27017/
+      DB2_URL: mongodb://thayna:rosil@db2:27017/
+
+  db1:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=thayna
+      - MONGO_INITDB_ROOT_PASSWORD=rosil
+    volumes:
+      - db_1:/data/db
+  db2:
+    image: mongo:4.0-xenial
+    ports:
+      - 27018:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=thayna
+      - MONGO_INITDB_ROOT_PASSWORD=rosil
+    volumes:
+      - db_2:/data/db
+
+volumes:
+  db_1:
+  db_2:
